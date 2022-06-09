@@ -8,6 +8,7 @@ public class MyNetworkManager : NetworkManager
     public Transform PlayerWhitePosition;
     public Transform PlayerBlackPosition;
     public static int players;
+    public Controller controller;
 
     private void Update()
     {
@@ -20,6 +21,8 @@ public class MyNetworkManager : NetworkManager
         GameObject player = Instantiate(playerPrefab, startPos.position, startPos.rotation);
 
         player.name = $"{playerPrefab.name} [connId={conn.connectionId}]";
-        NetworkServer.AddPlayerForConnection(conn, player);              
+        NetworkServer.AddPlayerForConnection(conn, player);
+        controller.players.Add(player);
+        controller.activePlayerIdx = 0;
     }  
 }
