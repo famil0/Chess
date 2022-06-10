@@ -17,6 +17,8 @@ public class Piece : MonoBehaviour
     public float zeroY;
     public Controller controller;
     public bool isInDanger = false;
+    public List<GameObject> dangeredBy = new List<GameObject>();
+    public bool isMoving = false;
 
     private void Start()
     {
@@ -49,18 +51,29 @@ public class Piece : MonoBehaviour
             outline.OutlineColor = outlineColor;        
         }
 
-        //if (!controller.canCheck)
-        //    isInDanger = false;
+
+        if (!controller.canCheck)
+            isInDanger = false;
 
         if (controller.canCheck)
         {
             controller.Check(GetComponent<Piece>(), true);
         }
+        if (dangeredBy.Count > 0) isInDanger = true;
+        else isInDanger = false;
+
+        if (isInDanger && controller.selected && controller.players[controller.activePlayerIdx].name.Contains(color.ToString()) is false && dangeredBy.Contains(controller.selected.gameObject))
+        {
+            outline.OutlineColor = Color.yellow;
+            outline.enabled = true;
+        }
+
+        if (isMoving) dangeredBy.Clear();
     }
 
     private void OnMouseDown()
     {
-        if (isInDanger && type != PieceType.King && controller.selected)
+        if (isInDanger && type != PieceType.King && controller.selected && dangeredBy.Contains(controller.selected.gameObject))
         {
             controller.clicked = gameObject.transform;
             controller.Move();
@@ -89,11 +102,12 @@ public class Piece : MonoBehaviour
         return null;
     }
 
-    public void SetDanger(int i, int j)
+    public void SetDanger(int i, int j, GameObject dangerous)
     {
         Piece piece = slots[i][j].GetComponent<Slot>().p;
         if (piece.color == color) return;
-        piece.isInDanger = true;
+        if (piece.dangeredBy.Contains(gameObject)) return;
+        piece.dangeredBy.Add(dangerous);
     }
 
     public bool IsFree(int i, int j)
@@ -118,7 +132,7 @@ public class Piece : MonoBehaviour
             if (IsOutOfBoard(i, j)) goto next;
             if (IsFree(i, j) is false)
             {
-                SetDanger(i, j);
+                SetDanger(i, j, gameObject);
                 goto next;
             }
 
@@ -128,7 +142,7 @@ public class Piece : MonoBehaviour
             if (IsOutOfBoard(i, j)) return;
             if (IsFree(i, j) is false)
             {
-                SetDanger(i, j);
+                SetDanger(i, j, gameObject);
                 return;
             }
             
@@ -145,7 +159,7 @@ public class Piece : MonoBehaviour
             if (IsFree(i, j) is false)
             {
                 if (type == PieceType.Pawn) return;
-                SetDanger(i, j);
+                SetDanger(i, j, gameObject);
                 return;
             }
 
@@ -167,7 +181,7 @@ public class Piece : MonoBehaviour
             if (IsOutOfBoard(i, j)) break;
             if (IsFree(i, j) is false)
             {
-                SetDanger(i, j);
+                SetDanger(i, j, gameObject);
                 break;
             }
             if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
@@ -182,7 +196,7 @@ public class Piece : MonoBehaviour
             if (IsOutOfBoard(i, j)) break;
             if (IsFree(i, j) is false)
             {
-                SetDanger(i, j);
+                SetDanger(i, j, gameObject);
                 break;
             }
             if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
@@ -196,7 +210,7 @@ public class Piece : MonoBehaviour
             if (IsOutOfBoard(i, j)) break;
             if (IsFree(i, j) is false)
             {
-                SetDanger(i, j);
+                SetDanger(i, j, gameObject);
                 break;
             }
             if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
@@ -217,7 +231,7 @@ public class Piece : MonoBehaviour
             if (IsOutOfBoard(i, j)) break;
             if (IsFree(i, j) is false)
             {
-                SetDanger(i, j);
+                SetDanger(i, j, gameObject);
                 break;
             }
             if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
@@ -231,7 +245,7 @@ public class Piece : MonoBehaviour
             if (IsOutOfBoard(i, j)) break;
             if (IsFree(i, j) is false)
             {
-                SetDanger(i, j);
+                SetDanger(i, j, gameObject);
                 break;
             }
             if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
@@ -246,7 +260,7 @@ public class Piece : MonoBehaviour
             if (IsOutOfBoard(i, j)) break;
             if (IsFree(i, j) is false)
             {
-                SetDanger(i, j);
+                SetDanger(i, j, gameObject);
                 break;
             }
             if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
@@ -260,7 +274,7 @@ public class Piece : MonoBehaviour
             if (IsOutOfBoard(i, j)) break;
             if (IsFree(i, j) is false)
             {
-                SetDanger(i, j);
+                SetDanger(i, j, gameObject);
                 break;
             }
             if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
@@ -276,7 +290,7 @@ public class Piece : MonoBehaviour
         if (IsOutOfBoard(i, j)) goto next;
         if (IsFree(i, j) is false)
         {
-            SetDanger(i, j);
+            SetDanger(i, j, gameObject);
             goto next;
         }
         if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
@@ -287,7 +301,7 @@ public class Piece : MonoBehaviour
         if (IsOutOfBoard(i, j)) goto next1;
         if (IsFree(i, j) is false)
         {
-            SetDanger(i, j);
+            SetDanger(i, j, gameObject);
             goto next1;
         }
         if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
@@ -298,7 +312,7 @@ public class Piece : MonoBehaviour
         if (IsOutOfBoard(i, j)) goto next2;
         if (IsFree(i, j) is false)
         {
-            SetDanger(i, j);
+            SetDanger(i, j, gameObject);
             goto next2;
         }
         if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
@@ -309,7 +323,7 @@ public class Piece : MonoBehaviour
         if (IsOutOfBoard(i, j)) goto next3;
         if (IsFree(i, j) is false)
         {
-            SetDanger(i, j);
+            SetDanger(i, j, gameObject);
             goto next3;
         }
         if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
@@ -320,7 +334,7 @@ public class Piece : MonoBehaviour
         if (IsOutOfBoard(i, j)) goto next4;
         if (IsFree(i, j) is false)
         {
-            SetDanger(i, j);
+            SetDanger(i, j, gameObject);
             goto next4;
         }
         if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
@@ -331,7 +345,7 @@ public class Piece : MonoBehaviour
         if (IsOutOfBoard(i, j)) goto next5;
         if (IsFree(i, j) is false)
         {
-            SetDanger(i, j);
+            SetDanger(i, j, gameObject);
             goto next5;
         }
         if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
@@ -342,7 +356,7 @@ public class Piece : MonoBehaviour
         if (IsOutOfBoard(i, j)) goto next6;
         if (IsFree(i, j) is false)
         {
-            SetDanger(i, j);
+            SetDanger(i, j, gameObject);
             goto next6;
         }
         if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
@@ -353,7 +367,7 @@ public class Piece : MonoBehaviour
         if (IsOutOfBoard(i, j)) return;
         if (IsFree(i, j) is false)
         {
-            SetDanger(i, j);
+            SetDanger(i, j, gameObject);
             return;
         }
         if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);

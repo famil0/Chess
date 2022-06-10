@@ -12,11 +12,29 @@ public class Controller : MonoBehaviour
     public List<GameObject> players = new List<GameObject>();
     public int activePlayerIdx;
     public bool canCheck = false;
+    public List<Piece> pieces = new List<Piece>();
+
+    private void Start()
+    {
+        foreach (Transform child in GameObject.Find("Whites").transform)
+        {
+            pieces.Add(child.gameObject.GetComponent<Piece>());
+        }
+        foreach (Transform child in GameObject.Find("Blacks").transform)
+        {
+            pieces.Add(child.gameObject.GetComponent<Piece>());
+        }
+    }
 
     public void Move()
     {
         canCheck = false;
-        selected.transform.DOMove(clicked.position, animTime).OnComplete(() => canCheck = true);
+        Transform tmp = selected;
+        foreach (var p in pieces)
+        {
+            p.dangeredBy.Clear();
+        }
+        selected.transform.DOMove(clicked.position, animTime).OnComplete(() => canCheck = true );
         selected.GetComponent<Piece>().moved = true;
         Select(selected.gameObject);
         activePlayerIdx = players.Count - 1 - activePlayerIdx;
@@ -33,8 +51,6 @@ public class Controller : MonoBehaviour
             g.layer = LayerMask.NameToLayer("Ignore Raycast");
             selected = g.transform;
             g.transform.DOLocalMoveY(p.zeroY + 1, animTime);
-
-            
 
             Check(p, false);
         }
