@@ -1,81 +1,81 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
 using DG.Tweening;
+using System;
 
-public class Controller : NetworkBehaviour
+public class Controller : MonoBehaviour
 {
-    [SyncVar] public Transform selected;
-    [SyncVar] public Transform clicked;
-    [SyncVar] public float animTime = 0.5f;
-    [SyncVar] public List<GameObject> players = new List<GameObject>();
-    [SyncVar] public int activePlayerIdx;
-    [SyncVar] public NetworkIdentity identity;
-    
-    private void Start()
-    {                
-        identity = GetComponent<NetworkIdentity>();
-    }
+    public Transform selected;
+    public Transform clicked;
+    public float animTime = 0.5f;
+    public List<GameObject> players = new List<GameObject>();
+    public int activePlayerIdx;
+    public bool canCheck = false;
 
-    [Command]
-    
     public void Move()
     {
-        selected.transform.DOLocalMove(clicked.position, animTime);
+        canCheck = false;
+        selected.transform.DOMove(clicked.position, animTime).OnComplete(() => canCheck = true);
+        selected.GetComponent<Piece>().moved = true;
+        Select(selected.gameObject);
         activePlayerIdx = players.Count - 1 - activePlayerIdx;
+        selected = null;
     }
 
-    [Command]
+
     public void Select(GameObject g)
     {
-        g.GetComponent<Piece>().selected = !g.GetComponent<Piece>().selected;
+        g.GetComponent<Piece>().isSelected = !g.GetComponent<Piece>().isSelected;
         Piece p = g.GetComponent<Piece>();
-        if (p.selected)
+        if (p.isSelected)
         {
             g.layer = LayerMask.NameToLayer("Ignore Raycast");
-        }
-        else
-        {
-            g.layer = LayerMask.NameToLayer("Default");
-            
-        }
-        if (p.selected)
-        {
             selected = g.transform;
             g.transform.DOLocalMoveY(p.zeroY + 1, animTime);
 
-            if (p.type == PieceType.Pawn)
-            {
-                p.FindPathForward(!selected.GetComponent<Piece>().moved ? 2 : 1);                
-            }
-            else if (p.type == PieceType.Bishop)
-            {
-                p.FindPathDiag(7);
-            }
-            else if (p.type == PieceType.Knight)
-            {
-                p.FindPathKnight();
-            }
-            else if (selected.GetComponent<Piece>().type == PieceType.Queen)
-            {
-                p.FindPathStraight(7);
-                p.FindPathDiag(7);
-            }
-            else if (p.type == PieceType.King)
-            {
-                p.FindPathStraight(1);
-                p.FindPathDiag(1);
-            }
-            else if (p.type == PieceType.Rook)
-            {
-                p.FindPathStraight(7);
-            }
+            
+
+            Check(p, false);
         }
         else
         {
-            selected = null;
             g.transform.DOLocalMoveY(p.zeroY, animTime);
+            g.layer = LayerMask.NameToLayer("Default");
         }
     }
+
+    public void Check(Piece p, bool onlyDangers)
+    {
+        int c = p.color == PieceColor.White ? 1 : -1;
+        Func<int, int> op = new Func<int, int>(x => x = x + c);
+
+        if (p.type == PieceType.Pawn)
+        {
+            p.FindPathForward(!p.moved ? 2 : 1, op, onlyDangers);
+        }
+        else if (p.type == PieceType.Bishop)
+        {
+            p.FindPathDiag(7, op, onlyDangers);
+        }
+        else if (p.type == PieceType.Knight)
+        {
+            p.FindPathKnight(onlyDangers);
+        }
+        else if (p.type == PieceType.Queen)
+        {
+            p.FindPathStraight(7, op, onlyDangers);
+            p.FindPathDiag(7, op, onlyDangers);
+        }
+        else if (p.type == PieceType.King)
+        {
+            p.FindPathStraight(1, op, onlyDangers);
+            p.FindPathDiag(1, op, onlyDangers);
+        }
+        else if (p.type == PieceType.Rook)
+        {
+            p.FindPathStraight(7, op, onlyDangers);
+        }
+    }
+
 }

@@ -2,30 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using Mirror;
 using System;
 
-public class Piece : NetworkBehaviour
+public class Piece : MonoBehaviour
 {
     public QuickOutline outline;
     public Color outlineColor;
     public PieceColor color;
-    public float animTime = 0.5f;
-    public bool selected = false;
+    public bool isSelected = false;
     public PieceType type;
     public List<List<GameObject>> slots = new List<List<GameObject>>();
     public bool moved = false;
     public Transform currentPos;
-    public NetworkIdentity identity;
     public float zeroY;
+    public Controller controller;
+    public bool isInDanger = false;
 
     private void Start()
     {
         zeroY = transform.position.y;
-        identity = GetComponent<NetworkIdentity>();
-        GameObject slot = GameObject.Find("Slots");
+        controller = GameObject.Find("Controller").GetComponent<Controller>();
         int i = -1;
         int j = 0;
+        GameObject slot = GameObject.Find("Slots");
         foreach (Transform s in slot.transform)
         {
             if (j++ % 8 == 0)
@@ -37,11 +36,41 @@ public class Piece : NetworkBehaviour
         }        
     }
 
+    private void LateUpdate()
+    {
+        if (isInDanger && type == PieceType.King)
+        {
+            outline.OutlineColor = Color.red;
+            outline.enabled = true;
+        }
+        else if (!isInDanger && type == PieceType.King)
+        {
+            outline.enabled = false;
+            outline.OutlineColor = outlineColor;        
+        }
 
+        //if (!controller.canCheck)
+        //    isInDanger = false;
+
+        if (controller.canCheck)
+        {
+            controller.Check(GetComponent<Piece>(), true);
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        if (isInDanger && type != PieceType.King && controller.selected)
+        {
+            controller.clicked = gameObject.transform;
+            controller.Move();
+            Destroy(gameObject);
+        }
+    }
 
     private void OnMouseExit()
     {
-        if (!selected) outline.enabled = false;
+        if (!isInDanger) outline.enabled = false;
     }
 
     public Tuple<int, int> GetCurrentPos()
@@ -50,6 +79,7 @@ public class Piece : NetworkBehaviour
         {
             for (int j = 0; j < 8; j++)
             {
+                if (IsOutOfBoard(i, j)) return null;
                 if (slots[i][j].transform == currentPos)
                 {
                     return new Tuple<int, int>(i, j);
@@ -59,149 +89,274 @@ public class Piece : NetworkBehaviour
         return null;
     }
 
-    public void FindPathForward(int n)
+    public void SetDanger(int i, int j)
+    {
+        Piece piece = slots[i][j].GetComponent<Slot>().p;
+        if (piece.color == color) return;
+        piece.isInDanger = true;
+    }
+
+    public bool IsFree(int i, int j)
+    {
+        return slots[i][j].GetComponent<Slot>().empty;       
+    }
+
+    public bool IsOutOfBoard(int i, int j)
+    {
+        return i < 0 || i >= 8 || j < 0 || j >= 8;
+    }
+
+    public void FindPathForward(int n, Func<int, int> op, bool onlyDanger)
     {
         Tuple<int, int> current = GetCurrentPos();
-        for (int k = 1; k <= n; k++)
+
+        if (onlyDanger && type == PieceType.Pawn)
         {
+            int l = op(0);
+            int i = current.Item1 + l;
+            int j = current.Item2 + l;
+            if (IsOutOfBoard(i, j)) goto next;
+            if (IsFree(i, j) is false)
+            {
+                SetDanger(i, j);
+                goto next;
+            }
+
+            next:
+            i = current.Item1 - l;
+            j = current.Item2 + l;
+            if (IsOutOfBoard(i, j)) return;
+            if (IsFree(i, j) is false)
+            {
+                SetDanger(i, j);
+                return;
+            }
+            
+            return;
+        }
+
+        int k = 0;
+        while (Math.Abs(k) < n)
+        {
+            k = op(k);
             int i = current.Item1;
             int j = current.Item2 + k;
-            if (i < 0 || i >= 8 || j < 0 || j >= 8) return;
-            if (slots[i][j].GetComponent<Slot>().empty is false) return;
-            slots[i][j].transform.GetChild(0).gameObject.SetActive(true);
-        }        
+            if (IsOutOfBoard(i, j)) break;
+            if (IsFree(i, j) is false)
+            {
+                if (type == PieceType.Pawn) return;
+                SetDanger(i, j);
+                return;
+            }
+
+            if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
+        } 
     }
 
-    public void FindPathStraight(int n)
+
+    public void FindPathStraight(int n, Func<int, int> op, bool onlyDanger)
     {
-        FindPathForward(n);
+        FindPathForward(n, op, onlyDanger);
         Tuple<int, int> current = GetCurrentPos();
-        for (int k = 1; k <= n; k++)
+        int k = 0;
+        while (Math.Abs(k) < n)
         {
+            k = op(k);
             int i = current.Item1;
             int j = current.Item2 - k;
-            if (i < 0 || i >= 8 || j < 0 || j >= 8) break;
-            if (slots[i][j].GetComponent<Slot>().empty is false) break;
-            slots[i][j].transform.GetChild(0).gameObject.SetActive(true);
+            if (IsOutOfBoard(i, j)) break;
+            if (IsFree(i, j) is false)
+            {
+                SetDanger(i, j);
+                break;
+            }
+            if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
         }
 
-        for (int k = 1; k <= n; k++)
+        k = 0;
+        while (Math.Abs(k) < n)
         {
+            k = op(k);
             int i = current.Item1 + k;
             int j = current.Item2;
-            if (i < 0 || i >= 8 || j < 0 || j >= 8) break;
-            if (slots[i][j].GetComponent<Slot>().empty is false) break;
-            slots[i][j].transform.GetChild(0).gameObject.SetActive(true);
+            if (IsOutOfBoard(i, j)) break;
+            if (IsFree(i, j) is false)
+            {
+                SetDanger(i, j);
+                break;
+            }
+            if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
         }
-        for (int k = 1; k <= n; k++)
+        k = 0;
+        while (Math.Abs(k) < n)
         {
+            k = op(k);
             int i = current.Item1 - k;
             int j = current.Item2;
-            if (i < 0 || i >= 8 || j < 0 || j >= 8) break;
-            if (slots[i][j].GetComponent<Slot>().empty is false) break;
-            slots[i][j].transform.GetChild(0).gameObject.SetActive(true);
+            if (IsOutOfBoard(i, j)) break;
+            if (IsFree(i, j) is false)
+            {
+                SetDanger(i, j);
+                break;
+            }
+            if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
         }
     }
 
 
 
-    public void FindPathDiag(int n)
+    public void FindPathDiag(int n, Func<int, int> op, bool onlyDanger)
     {
         Tuple<int, int> current = GetCurrentPos();
-        for (int k = 1; k <= n; k++)
+        int k = 0;
+        while (Math.Abs(k) < n)
         {
+            k = op(k);
             int i = current.Item1 + k;
             int j = current.Item2 + k;
-            if (i < 0 || i >= 8 || j < 0 || j >= 8) break;
-            if (slots[i][j].GetComponent<Slot>().empty is false) break;
-            slots[i][j].transform.GetChild(0).gameObject.SetActive(true);
+            if (IsOutOfBoard(i, j)) break;
+            if (IsFree(i, j) is false)
+            {
+                SetDanger(i, j);
+                break;
+            }
+            if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
         }
-        for (int k = 1; k <= n; k++)
+        k = 0;
+        while (Math.Abs(k) < n)
         {
+            k = op(k);
             int i = current.Item1 - k;
             int j = current.Item2 - k;
-            if (i < 0 || i >= 8 || j < 0 || j >= 8) break;
-            if (slots[i][j].GetComponent<Slot>().empty is false) break;
-            slots[i][j].transform.GetChild(0).gameObject.SetActive(true);
+            if (IsOutOfBoard(i, j)) break;
+            if (IsFree(i, j) is false)
+            {
+                SetDanger(i, j);
+                break;
+            }
+            if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
         }
 
-
-        for (int k = 1; k <= n; k++)
+        k = 0;
+        while (Math.Abs(k) < n)
         {
+            k = op(k);
             int i = current.Item1 - k;
             int j = current.Item2 + k;
-            if (i < 0 || i >= 8 || j < 0 || j >= 8) break;
-            if (slots[i][j].GetComponent<Slot>().empty is false) break;
-            slots[i][j].transform.GetChild(0).gameObject.SetActive(true);
+            if (IsOutOfBoard(i, j)) break;
+            if (IsFree(i, j) is false)
+            {
+                SetDanger(i, j);
+                break;
+            }
+            if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
         }
-        for (int k = 1; k <= n; k++)
+        k = 0;
+        while (Math.Abs(k) < n)
         {
+            k = op(k);
             int i = current.Item1 + k;
             int j = current.Item2 - k;
-            if (i < 0 || i >= 8 || j < 0 || j >= 8) break;
-            if (slots[i][j].GetComponent<Slot>().empty is false) break;
-            slots[i][j].transform.GetChild(0).gameObject.SetActive(true);
+            if (IsOutOfBoard(i, j)) break;
+            if (IsFree(i, j) is false)
+            {
+                SetDanger(i, j);
+                break;
+            }
+            if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
         }
 
     }
 
-    public void FindPathKnight()
+    public void FindPathKnight(bool onlyDanger)
     {
         Tuple<int, int> current = GetCurrentPos();
         int i = current.Item1 + 1;
         int j = current.Item2 + 2;
-        if (i < 0 || i >= 8 || j < 0 || j >= 8) goto next;
-        if (slots[i][j].GetComponent<Slot>().empty is false) goto next;
-        slots[i][j].transform.GetChild(0).gameObject.SetActive(true);
+        if (IsOutOfBoard(i, j)) goto next;
+        if (IsFree(i, j) is false)
+        {
+            SetDanger(i, j);
+            goto next;
+        }
+        if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
 
         next:
         i = current.Item1 + 2;
         j = current.Item2 + 1;
-        if (i < 0 || i >= 8 || j < 0 || j >= 8) goto next1;
-        if (slots[i][j].GetComponent<Slot>().empty is false) goto next1;
-        slots[i][j].transform.GetChild(0).gameObject.SetActive(true);
+        if (IsOutOfBoard(i, j)) goto next1;
+        if (IsFree(i, j) is false)
+        {
+            SetDanger(i, j);
+            goto next1;
+        }
+        if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
 
         next1:
         i = current.Item1 + 2;
         j = current.Item2 - 1;
-        if (i < 0 || i >= 8 || j < 0 || j >= 8) goto next2;
-        if (slots[i][j].GetComponent<Slot>().empty is false) goto next2;
-        slots[i][j].transform.GetChild(0).gameObject.SetActive(true);
+        if (IsOutOfBoard(i, j)) goto next2;
+        if (IsFree(i, j) is false)
+        {
+            SetDanger(i, j);
+            goto next2;
+        }
+        if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
 
         next2:
         i = current.Item1 + 1;
         j = current.Item2 - 2;
-        if (i < 0 || i >= 8 || j < 0 || j >= 8) goto next3;
-        if (slots[i][j].GetComponent<Slot>().empty is false) goto next3;
-        slots[i][j].transform.GetChild(0).gameObject.SetActive(true);
+        if (IsOutOfBoard(i, j)) goto next3;
+        if (IsFree(i, j) is false)
+        {
+            SetDanger(i, j);
+            goto next3;
+        }
+        if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
 
         next3:
         i = current.Item1 - 1;
         j = current.Item2 - 2;
-        if (i < 0 || i >= 8 || j < 0 || j >= 8) goto next4;
-        if (slots[i][j].GetComponent<Slot>().empty is false) goto next4;
-        slots[i][j].transform.GetChild(0).gameObject.SetActive(true);
+        if (IsOutOfBoard(i, j)) goto next4;
+        if (IsFree(i, j) is false)
+        {
+            SetDanger(i, j);
+            goto next4;
+        }
+        if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
 
-    next4:
+        next4:
         i = current.Item1 - 2;
         j = current.Item2 - 1;
-        if (i < 0 || i >= 8 || j < 0 || j >= 8) goto next5;
-        if (slots[i][j].GetComponent<Slot>().empty is false) goto next5;
-        slots[i][j].transform.GetChild(0).gameObject.SetActive(true);
+        if (IsOutOfBoard(i, j)) goto next5;
+        if (IsFree(i, j) is false)
+        {
+            SetDanger(i, j);
+            goto next5;
+        }
+        if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
 
-    next5:
+        next5:
         i = current.Item1 - 2;
         j = current.Item2 + 1;
-        if (i < 0 || i >= 8 || j < 0 || j >= 8) goto next6;
-        if (slots[i][j].GetComponent<Slot>().empty is false) goto next6;
-        slots[i][j].transform.GetChild(0).gameObject.SetActive(true);
+        if (IsOutOfBoard(i, j)) goto next6;
+        if (IsFree(i, j) is false)
+        {
+            SetDanger(i, j);
+            goto next6;
+        }
+        if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
 
-    next6:
+        next6:
         i = current.Item1 - 1;
         j = current.Item2 + 2;
-        if (i < 0 || i >= 8 || j < 0 || j >= 8) return;
-        if (slots[i][j].GetComponent<Slot>().empty is false) return;
-        slots[i][j].transform.GetChild(0).gameObject.SetActive(true);
+        if (IsOutOfBoard(i, j)) return;
+        if (IsFree(i, j) is false)
+        {
+            SetDanger(i, j);
+            return;
+        }
+        if (!onlyDanger) slots[i][j].GetComponent<Slot>().indicator.SetActive(true);
 
 
     }
