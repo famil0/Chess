@@ -26,7 +26,7 @@ public class MyNetworkManager : NetworkManager
         player.name = $"{playerPrefab.name} [connId={conn.connectionId}]";
         NetworkServer.AddPlayerForConnection(conn, player);
         controller.players.Add(player);
-        controller.activePlayerIdx = 0;
+        controller.activePlayer = 0;
         Debug.Log(controller.players.Count);
     }
 }

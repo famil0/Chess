@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        if (controller.players[controller.activePlayerIdx] != gameObject) return;
+        if (controller.activePlayer.ToString() != control.ToString()) return;
 
         ray = cam.ScreenPointToRay(Input.mousePosition);
         GameObject g;
@@ -36,12 +36,13 @@ public class PlayerController : MonoBehaviour
             p = g.GetComponent<Piece>();
             if (g.name == "Indicator" && Input.GetMouseButtonDown(0))
             {
+                if (g.transform.GetComponent<MeshRenderer>().material.color == Color.red && controller.selected.GetComponent<Piece>().type == PieceType.King) return;
                 controller.clicked = g.transform.parent;
                 controller.Move();
             }
             if (g.tag != "Piece" || p.color.ToString() != control.ToString()) return;
 
-            if (controller.selected) return;
+            if (controller.selected || p.isMoving) return;
             g.GetComponent<QuickOutline>().enabled = true;
 
             if (Input.GetMouseButtonDown(0))

@@ -10,8 +10,8 @@ public class Controller : MonoBehaviour
     public Transform clicked;
     public float animTime = 0.5f;
     public List<GameObject> players = new List<GameObject>();
-    public int activePlayerIdx;
-    public bool canCheck = false;
+    public PieceColor activePlayer;
+    public bool canCheck = true;
     public List<Piece> pieces = new List<Piece>();
 
     private void Start()
@@ -30,17 +30,28 @@ public class Controller : MonoBehaviour
     {
         canCheck = false;
         Transform tmp = selected;
-        foreach (var p in pieces)
-        {
-            p.dangeredBy.Clear();
-        }
+        Piece p = selected.GetComponent<Piece>();
+        p.outline.enabled = false;
+        p.outline.OutlineColor = p.outlineColor;
+        p.moved = true;
         selected.transform.DOMove(clicked.position, animTime).OnComplete(() => canCheck = true );
-        selected.GetComponent<Piece>().moved = true;
         Select(selected.gameObject);
-        activePlayerIdx = players.Count - 1 - activePlayerIdx;
+        activePlayer = players.Count - 1 - activePlayer;
         selected = null;
     }
 
+    private void LateUpdate()
+    {
+        foreach (Piece p in pieces)
+        {
+            foreach (GameObject slot in p.path)
+            {
+                if (slot.GetComponent<Slot>().dangeredBy.Contains(p.gameObject) is false)
+                    slot.GetComponent<Slot>().dangeredBy.Add(p.gameObject);
+                slot.GetComponent<Slot>().isDangered = true;
+            }
+        }
+    }
 
     public void Select(GameObject g)
     {

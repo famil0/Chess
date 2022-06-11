@@ -13,12 +13,13 @@ public class Piece : MonoBehaviour
     public PieceType type;
     public List<List<GameObject>> slots = new List<List<GameObject>>();
     public bool moved = false;
-    public Transform currentPos;
+    public Slot slot;
     public float zeroY;
     public Controller controller;
     public bool isInDanger = false;
-    public List<GameObject> dangeredBy = new List<GameObject>();
     public bool isMoving = false;
+    public List<GameObject> dangeredBy = new List<GameObject>();
+    public List<GameObject> path = new List<GameObject>();
 
     private void Start()
     {
@@ -40,43 +41,42 @@ public class Piece : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (isInDanger && type == PieceType.King)
+        if (!controller.canCheck)
+        {
+            isInDanger = false;
+            dangeredBy.Clear();
+        }
+        else
+        {
+            ClearPath();
+            controller.Check(GetComponent<Piece>(), true);
+        }
+
+        if (type == PieceType.King && isInDanger /*&& slot.dangeredBy.Find(x => x.GetComponent<Piece>().color != color)*/)
         {
             outline.OutlineColor = Color.red;
             outline.enabled = true;
         }
-        else if (!isInDanger && type == PieceType.King)
+    }
+
+    void ClearPath()
+    {
+        foreach (GameObject slot in path)
         {
-            outline.enabled = false;
-            outline.OutlineColor = outlineColor;        
+            slot.GetComponent<Slot>().isDangered = false;
+            slot.GetComponent<Slot>().dangeredBy.Clear();
         }
-
-
-        if (!controller.canCheck)
-            isInDanger = false;
-
-        if (controller.canCheck)
-        {
-            controller.Check(GetComponent<Piece>(), true);
-        }
-        if (dangeredBy.Count > 0) isInDanger = true;
-        else isInDanger = false;
-
-        if (isInDanger && controller.selected && controller.players[controller.activePlayerIdx].name.Contains(color.ToString()) is false && dangeredBy.Contains(controller.selected.gameObject))
-        {
-            outline.OutlineColor = Color.yellow;
-            outline.enabled = true;
-        }
-
-        if (isMoving) dangeredBy.Clear();
+        path.Clear();
     }
 
     private void OnMouseDown()
     {
-        if (isInDanger && type != PieceType.King && controller.selected && dangeredBy.Contains(controller.selected.gameObject))
+        if (isInDanger && type != PieceType.King && controller.selected)
         {
             controller.clicked = gameObject.transform;
             controller.Move();
+            controller.selected.GetComponent<Piece>().dangeredBy.Remove(controller.clicked.gameObject);
+            controller.pieces.Remove(GetComponent<Piece>());
             Destroy(gameObject);
         }
     }
@@ -93,7 +93,7 @@ public class Piece : MonoBehaviour
             for (int j = 0; j < 8; j++)
             {
                 if (IsOutOfBoard(i, j)) return null;
-                if (slots[i][j].transform == currentPos)
+                if (slots[i][j].GetComponent<Slot>() == slot)
                 {
                     return new Tuple<int, int>(i, j);
                 }
@@ -108,6 +108,7 @@ public class Piece : MonoBehaviour
         if (piece.color == color) return;
         if (piece.dangeredBy.Contains(gameObject)) return;
         piece.dangeredBy.Add(dangerous);
+        piece.isInDanger = true;
     }
 
     public bool IsFree(int i, int j)
@@ -130,6 +131,7 @@ public class Piece : MonoBehaviour
             int i = current.Item1 + l;
             int j = current.Item2 + l;
             if (IsOutOfBoard(i, j)) goto next;
+            path.Add(slots[i][j]);
             if (IsFree(i, j) is false)
             {
                 SetDanger(i, j, gameObject);
@@ -140,6 +142,7 @@ public class Piece : MonoBehaviour
             i = current.Item1 - l;
             j = current.Item2 + l;
             if (IsOutOfBoard(i, j)) return;
+            path.Add(slots[i][j]);
             if (IsFree(i, j) is false)
             {
                 SetDanger(i, j, gameObject);
@@ -156,6 +159,7 @@ public class Piece : MonoBehaviour
             int i = current.Item1;
             int j = current.Item2 + k;
             if (IsOutOfBoard(i, j)) break;
+            path.Add(slots[i][j]);
             if (IsFree(i, j) is false)
             {
                 if (type == PieceType.Pawn) return;
@@ -179,6 +183,7 @@ public class Piece : MonoBehaviour
             int i = current.Item1;
             int j = current.Item2 - k;
             if (IsOutOfBoard(i, j)) break;
+            path.Add(slots[i][j]);
             if (IsFree(i, j) is false)
             {
                 SetDanger(i, j, gameObject);
@@ -194,6 +199,7 @@ public class Piece : MonoBehaviour
             int i = current.Item1 + k;
             int j = current.Item2;
             if (IsOutOfBoard(i, j)) break;
+            path.Add(slots[i][j]);
             if (IsFree(i, j) is false)
             {
                 SetDanger(i, j, gameObject);
@@ -208,6 +214,7 @@ public class Piece : MonoBehaviour
             int i = current.Item1 - k;
             int j = current.Item2;
             if (IsOutOfBoard(i, j)) break;
+            path.Add(slots[i][j]);
             if (IsFree(i, j) is false)
             {
                 SetDanger(i, j, gameObject);
@@ -229,6 +236,7 @@ public class Piece : MonoBehaviour
             int i = current.Item1 + k;
             int j = current.Item2 + k;
             if (IsOutOfBoard(i, j)) break;
+            path.Add(slots[i][j]);
             if (IsFree(i, j) is false)
             {
                 SetDanger(i, j, gameObject);
@@ -243,6 +251,7 @@ public class Piece : MonoBehaviour
             int i = current.Item1 - k;
             int j = current.Item2 - k;
             if (IsOutOfBoard(i, j)) break;
+            path.Add(slots[i][j]);
             if (IsFree(i, j) is false)
             {
                 SetDanger(i, j, gameObject);
@@ -258,6 +267,7 @@ public class Piece : MonoBehaviour
             int i = current.Item1 - k;
             int j = current.Item2 + k;
             if (IsOutOfBoard(i, j)) break;
+            path.Add(slots[i][j]);
             if (IsFree(i, j) is false)
             {
                 SetDanger(i, j, gameObject);
@@ -272,6 +282,7 @@ public class Piece : MonoBehaviour
             int i = current.Item1 + k;
             int j = current.Item2 - k;
             if (IsOutOfBoard(i, j)) break;
+            path.Add(slots[i][j]);
             if (IsFree(i, j) is false)
             {
                 SetDanger(i, j, gameObject);
@@ -288,6 +299,7 @@ public class Piece : MonoBehaviour
         int i = current.Item1 + 1;
         int j = current.Item2 + 2;
         if (IsOutOfBoard(i, j)) goto next;
+        path.Add(slots[i][j]);
         if (IsFree(i, j) is false)
         {
             SetDanger(i, j, gameObject);
@@ -299,6 +311,7 @@ public class Piece : MonoBehaviour
         i = current.Item1 + 2;
         j = current.Item2 + 1;
         if (IsOutOfBoard(i, j)) goto next1;
+        path.Add(slots[i][j]);
         if (IsFree(i, j) is false)
         {
             SetDanger(i, j, gameObject);
@@ -310,6 +323,7 @@ public class Piece : MonoBehaviour
         i = current.Item1 + 2;
         j = current.Item2 - 1;
         if (IsOutOfBoard(i, j)) goto next2;
+        path.Add(slots[i][j]);
         if (IsFree(i, j) is false)
         {
             SetDanger(i, j, gameObject);
@@ -321,6 +335,7 @@ public class Piece : MonoBehaviour
         i = current.Item1 + 1;
         j = current.Item2 - 2;
         if (IsOutOfBoard(i, j)) goto next3;
+        path.Add(slots[i][j]);
         if (IsFree(i, j) is false)
         {
             SetDanger(i, j, gameObject);
@@ -332,6 +347,7 @@ public class Piece : MonoBehaviour
         i = current.Item1 - 1;
         j = current.Item2 - 2;
         if (IsOutOfBoard(i, j)) goto next4;
+        path.Add(slots[i][j]);
         if (IsFree(i, j) is false)
         {
             SetDanger(i, j, gameObject);
@@ -343,6 +359,7 @@ public class Piece : MonoBehaviour
         i = current.Item1 - 2;
         j = current.Item2 - 1;
         if (IsOutOfBoard(i, j)) goto next5;
+        path.Add(slots[i][j]);
         if (IsFree(i, j) is false)
         {
             SetDanger(i, j, gameObject);
@@ -354,6 +371,7 @@ public class Piece : MonoBehaviour
         i = current.Item1 - 2;
         j = current.Item2 + 1;
         if (IsOutOfBoard(i, j)) goto next6;
+        path.Add(slots[i][j]);
         if (IsFree(i, j) is false)
         {
             SetDanger(i, j, gameObject);
@@ -365,6 +383,7 @@ public class Piece : MonoBehaviour
         i = current.Item1 - 1;
         j = current.Item2 + 2;
         if (IsOutOfBoard(i, j)) return;
+        path.Add(slots[i][j]);
         if (IsFree(i, j) is false)
         {
             SetDanger(i, j, gameObject);
@@ -377,6 +396,6 @@ public class Piece : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        currentPos = other.transform;
+        slot = other.GetComponent<Slot>();        
     }
 }

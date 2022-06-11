@@ -9,6 +9,8 @@ public class Slot : MonoBehaviour
     public Controller controller;
     public Piece p;
     public GameObject indicator;
+    public bool isDangered = false;
+    public List<GameObject> dangeredBy;
 
     private void Start()
     {
@@ -24,6 +26,15 @@ public class Slot : MonoBehaviour
     {
         empty = false;
         p = other.GetComponent<Piece>();
+        if (isDangered && !dangeredBy.Find(x => x.name.Contains(p.color.ToString())) && p.type == PieceType.King)
+        {
+            p.isInDanger = true;
+        }
+        else if (p.type == PieceType.King)
+        {
+            p.outline.enabled = false;
+            p.outline.OutlineColor = p.outlineColor;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -32,8 +43,18 @@ public class Slot : MonoBehaviour
         p = null;
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         if (controller.selected is null) indicator.SetActive(false);
+        if (!controller.selected) return;
+        if (isDangered && dangeredBy.Find(x => x.name.Contains(controller.players[1 - (int)controller.activePlayer].name.Split(" ")[1]) && controller.selected.GetComponent<Piece>().type == PieceType.King))
+        {
+            indicator.GetComponent<MeshRenderer>().material.color = Color.red;
+        }
+        else
+        {
+            indicator.GetComponent<MeshRenderer>().material.color = Color.yellow;
+        }
+
     }
 }

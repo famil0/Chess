@@ -189,6 +189,16 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 484090, guid: edd4f3477fd5a8b4599bf6c0dac39f1d, type: 3}
   m_PrefabInstance: {fileID: 55426758}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &181147218 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1067068817317486835, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+  m_PrefabInstance: {fileID: 742368760}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &181147220 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+  m_PrefabInstance: {fileID: 742368760}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &281407969
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -387,63 +397,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 473602, guid: 48d5ea4ff810d0e4ea36af7235dd5fd7, type: 3}
   m_PrefabInstance: {fileID: 396788422}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &397630768
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1671170104}
-    m_Modifications:
-    - target: {fileID: 1067068817317486835, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
-      propertyPath: m_Name
-      value: PlayerBlack
-      objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
 --- !u!1001 &417978260
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -972,6 +925,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 447096, guid: 6f38c700bedefe64f8364436528e5c3d, type: 3}
   m_PrefabInstance: {fileID: 716297349}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &742368760
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1415571506}
+    m_Modifications:
+    - target: {fileID: 1067068817317486835, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+      propertyPath: m_Name
+      value: Player White
+      objectReference: {fileID: 0}
+    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
 --- !u!1001 &852295850
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1303,73 +1313,73 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 484090, guid: edd4f3477fd5a8b4599bf6c0dac39f1d, type: 3}
   m_PrefabInstance: {fileID: 1058056117}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1108301938
+--- !u!1 &1123226410 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1067068817317486835, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
+  m_PrefabInstance: {fileID: 1406219917}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1123226412 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
+  m_PrefabInstance: {fileID: 1406219917}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1406219917
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1415571506}
+    m_TransformParent: {fileID: 1671170104}
     m_Modifications:
-    - target: {fileID: 1067068817317486835, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+    - target: {fileID: 1067068817317486835, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
       propertyPath: m_Name
-      value: PlayerWhite
+      value: Player Black
       objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
+    - target: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
---- !u!1 &1239600780 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1067068817317486835, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
-  m_PrefabInstance: {fileID: 1108301938}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1239600781 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1067068817317486836, guid: c0686cb92c92de644bec9bc3f57d60f6, type: 3}
-  m_PrefabInstance: {fileID: 1108301938}
-  m_PrefabAsset: {fileID: 0}
+  m_SourcePrefab: {fileID: 100100000, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
 --- !u!1001 &1409726106
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1464,7 +1474,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1239600781}
+  - {fileID: 181147220}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9948,7 +9958,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2084654194}
+  - {fileID: 1123226412}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -10844,10 +10854,11 @@ MonoBehaviour:
   clicked: {fileID: 0}
   animTime: 0.5
   players:
-  - {fileID: 1239600780}
-  - {fileID: 2084654193}
-  activePlayerIdx: 0
-  canCheck: 0
+  - {fileID: 181147218}
+  - {fileID: 1123226410}
+  activePlayer: 0
+  canCheck: 1
+  pieces: []
 --- !u!4 &2001274379
 Transform:
   m_ObjectHideFlags: 0
@@ -10928,16 +10939,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 464390, guid: b6c7ad354ac474944ba26b2895a59759, type: 3}
   m_PrefabInstance: {fileID: 2042237045}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2084654193 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1067068817317486835, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
-  m_PrefabInstance: {fileID: 397630768}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2084654194 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1067068817317486836, guid: 16c7d87644babbe4fa27eae72b6ad255, type: 3}
-  m_PrefabInstance: {fileID: 397630768}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2136714484
 GameObject:
@@ -11032,6 +11033,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830241295156733
 GameObject:
   m_ObjectHideFlags: 0
@@ -11141,6 +11144,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!65 &1026830241345327360
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11171,6 +11176,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830241345327374
 GameObject:
   m_ObjectHideFlags: 0
@@ -11267,6 +11274,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!114 &1026830241370730184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11284,6 +11293,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830241370730197
 GameObject:
   m_ObjectHideFlags: 0
@@ -11393,6 +11404,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!4 &1026830241385028512
 Transform:
   m_ObjectHideFlags: 0
@@ -11438,6 +11451,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830241385028527
 GameObject:
   m_ObjectHideFlags: 0
@@ -11519,6 +11534,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830241507529976
 GameObject:
   m_ObjectHideFlags: 0
@@ -11754,6 +11771,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!114 &1026830241521832368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11771,6 +11790,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830241521832381
 GameObject:
   m_ObjectHideFlags: 0
@@ -11880,6 +11901,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830241543014579
 GameObject:
   m_ObjectHideFlags: 0
@@ -12115,6 +12138,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830241600870545
 GameObject:
   m_ObjectHideFlags: 0
@@ -12178,6 +12203,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!114 &1026830241603483296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12413,6 +12440,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830241654499369
 GameObject:
   m_ObjectHideFlags: 0
@@ -12476,6 +12505,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830241676867987
 GameObject:
   m_ObjectHideFlags: 0
@@ -13194,6 +13225,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830241750337374
 GameObject:
   m_ObjectHideFlags: 0
@@ -13462,6 +13495,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!65 &1026830241938978592
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13492,6 +13527,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830241938978606
 GameObject:
   m_ObjectHideFlags: 0
@@ -13886,6 +13923,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830241960999605
 GameObject:
   m_ObjectHideFlags: 0
@@ -13995,6 +14034,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830241967969204
 GameObject:
   m_ObjectHideFlags: 0
@@ -14058,6 +14099,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830241971652280
 GameObject:
   m_ObjectHideFlags: 0
@@ -14121,6 +14164,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242005003531
 GameObject:
   m_ObjectHideFlags: 0
@@ -14184,6 +14229,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242042770009
 GameObject:
   m_ObjectHideFlags: 0
@@ -14247,6 +14294,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242074206892
 GameObject:
   m_ObjectHideFlags: 0
@@ -14310,6 +14359,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!4 &1026830242091507632
 Transform:
   m_ObjectHideFlags: 0
@@ -14355,6 +14406,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242091507647
 GameObject:
   m_ObjectHideFlags: 0
@@ -14608,6 +14661,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242128027369
 GameObject:
   m_ObjectHideFlags: 0
@@ -14671,6 +14726,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!65 &1026830242133300032
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14701,6 +14758,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242133300046
 GameObject:
   m_ObjectHideFlags: 0
@@ -14925,6 +14984,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242174661437
 GameObject:
   m_ObjectHideFlags: 0
@@ -15016,6 +15077,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242184807439
 GameObject:
   m_ObjectHideFlags: 0
@@ -15097,6 +15160,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242221428725
 GameObject:
   m_ObjectHideFlags: 0
@@ -15223,6 +15288,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!65 &1026830242249744464
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15253,6 +15320,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242249744478
 GameObject:
   m_ObjectHideFlags: 0
@@ -15349,6 +15418,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242324104368
 GameObject:
   m_ObjectHideFlags: 0
@@ -15617,6 +15688,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!4 &1026830242342527840
 Transform:
   m_ObjectHideFlags: 0
@@ -15662,6 +15735,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242342527855
 GameObject:
   m_ObjectHideFlags: 0
@@ -15844,6 +15919,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242415691108
 GameObject:
   m_ObjectHideFlags: 0
@@ -16251,6 +16328,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242485955251
 GameObject:
   m_ObjectHideFlags: 0
@@ -16314,6 +16393,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!114 &1026830242540029800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16596,6 +16677,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242634578602
 GameObject:
   m_ObjectHideFlags: 0
@@ -16659,6 +16742,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!114 &1026830242656980576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17066,6 +17151,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242705173050
 GameObject:
   m_ObjectHideFlags: 0
@@ -17191,6 +17278,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242725294638
 GameObject:
   m_ObjectHideFlags: 0
@@ -17241,6 +17330,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242790431461
 GameObject:
   m_ObjectHideFlags: 0
@@ -17304,6 +17395,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242805774933
 GameObject:
   m_ObjectHideFlags: 0
@@ -17413,6 +17506,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242834824059
 GameObject:
   m_ObjectHideFlags: 0
@@ -17476,6 +17571,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242849246432
 GameObject:
   m_ObjectHideFlags: 0
@@ -17711,6 +17808,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!4 &1026830242939449920
 Transform:
   m_ObjectHideFlags: 0
@@ -17756,6 +17855,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242939449935
 GameObject:
   m_ObjectHideFlags: 0
@@ -17837,6 +17938,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830242973509027
 GameObject:
   m_ObjectHideFlags: 0
@@ -18416,6 +18519,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830243002864905
 GameObject:
   m_ObjectHideFlags: 0
@@ -18479,6 +18584,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830243033335736
 GameObject:
   m_ObjectHideFlags: 0
@@ -18761,6 +18868,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830243060364796
 GameObject:
   m_ObjectHideFlags: 0
@@ -18963,6 +19072,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830243061173678
 GameObject:
   m_ObjectHideFlags: 0
@@ -19059,6 +19170,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830243144974458
 GameObject:
   m_ObjectHideFlags: 0
@@ -19122,6 +19235,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830243147893820
 GameObject:
   m_ObjectHideFlags: 0
@@ -19701,6 +19816,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!114 &1026830243193763600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19718,6 +19835,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830243193763613
 GameObject:
   m_ObjectHideFlags: 0
@@ -19827,6 +19946,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!4 &1026830243233203200
 Transform:
   m_ObjectHideFlags: 0
@@ -19872,6 +19993,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830243233203215
 GameObject:
   m_ObjectHideFlags: 0
@@ -19907,6 +20030,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830243255301077
 GameObject:
   m_ObjectHideFlags: 0
@@ -19998,6 +20123,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830243256249495
 GameObject:
   m_ObjectHideFlags: 0
@@ -20767,6 +20894,8 @@ MonoBehaviour:
   controller: {fileID: 2001274377}
   p: {fileID: 0}
   indicator: {fileID: 0}
+  isDangered: 0
+  dangeredBy: []
 --- !u!1 &1026830243363038611
 GameObject:
   m_ObjectHideFlags: 0
